@@ -105,3 +105,57 @@ db.users.find(
         ]
     }
 ).pretty()
+
+
+//Verificar el email con regex en mongoDB:
+db.users.find(
+	{
+email: /.com$/  
+}
+)
+
+
+// Obtener todos los usuarios con atributo estatus (sería como un atributo especial de algunos usuarios)
+db.users.find(
+    {
+        $status: {exists:false}
+    }
+)
+
+// Para obtener en un archivo largo de datos las edades 27, 40 y 11 ejecutarlo como lista:
+
+db.users.find(
+    {
+        age: $in[ 27,40, 11]  
+    }
+);
+
+//  Ejemplo de obtener el usuario de mayor edad y limitar a un solo archivo
+db.users.find().sort({
+        age: -1
+    }
+).limit(1)
+
+
+// - Ejemplo de cómo obtener los 3 usuarios más jóvenes:
+
+db.users.find().sort({
+    age: 1
+}).limit(3)
+
+//contar la cantidad de archivos en la coleccion
+db.users.find().count()
+
+//contar la cantidad de archivos en la coleccion con edad mayor a 27
+
+db.users.find({
+    age: {
+        $gte:27
+    }
+}).count()
+
+//saltear archivos
+
+db.users.find().skip(2)
+
+
