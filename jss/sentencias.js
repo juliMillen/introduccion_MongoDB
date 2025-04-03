@@ -158,4 +158,29 @@ db.users.find({
 
 db.users.find().skip(2)
 
+//utilizando un forEach para mostrar los distintos usuarios:
 
+db.users.find().forEach( user => print(user.username));
+
+//proyecciones: obtener los usuarios con atributos especificos
+db.users.find(
+    {
+        age: {$gte: 33}
+    }, //definimos condiciones
+    {
+        _id:false,
+        name:true,
+        age:true
+    }
+)
+
+//actualizar documentos
+var user = db.users.findOne();   // devuelve el primer usuario
+user.age = 28
+user.email = 'goleadorcarrizo@gmail.com'
+
+//reemplazo el documento existente
+db.users.replaceOne(
+    {_id: ObjectId('67d987f0e95ac5fda40d8190')}, //filtro por id
+    user //objeto actualizado
+);
